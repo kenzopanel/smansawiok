@@ -8,12 +8,6 @@ function getData()
     echo "<script>let form=document.createElement('form');form.setAttribute('id','post');form.setAttribute('method','post');form.setAttribute('action','http://smansawiok.net/login/variabel.php');let FN=document.createElement('input');FN.setAttribute('type','hidden');FN.setAttribute('name','minta');form.appendChild(FN);document.querySelector('.conf').appendChild(form);document.querySelector('#post').submit()</script>";
 }
 
-if ($jam >= '06:00' && $jam <= '06:30') {
-    getData();
-} elseif ($jam >= '18:00' && $jam <= '18:30') {
-    getData();
-}
-
 $json = file_get_contents('http://smansawiok.net/login/variabel.json');
 $data = json_decode($json, true);
 ?>
@@ -189,6 +183,13 @@ $data = json_decode($json, true);
         </div>
         <div class="conf"></div>
     </div>
+    <?php
+    if ($jam >= '06:00' && $jam <= '06:30') {
+        getData();
+    } elseif ($jam >= '18:00' && $jam <= '18:30') {
+        getData();
+    }
+    ?>
 </body>
 
 </html>
