@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta content="#111" name='theme-color'>
     <meta content='#111' name='msapplication-navbutton-color'>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>Hello</title>
     <link rel="icon" type="image/png" href="https://1.bp.blogspot.com/-85jB59pLkB8/YEZdJoBE2cI/AAAAAAAABBo/jLmgjru1EJMsGK6SV1FtysRGuRLPpir0ACLcBGAsYHQ/s640/icon.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
