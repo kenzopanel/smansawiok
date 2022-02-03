@@ -1,17 +1,3 @@
-<?php
-
-date_default_timezone_set('Asia/Jakarta');
-$jam = date('H:i');
-
-function getData()
-{
-    echo "<script>let form=document.createElement('form');form.setAttribute('id','post');form.setAttribute('method','post');form.setAttribute('action','http://smansawiok.net/login/variabel.php');let FN=document.createElement('input');FN.setAttribute('type','hidden');FN.setAttribute('name','minta');form.appendChild(FN);document.querySelector('.conf').appendChild(form);document.querySelector('#post').submit()</script>";
-}
-
-$json = file_get_contents('http://smansawiok.net/login/variabel.json');
-$data = json_decode($json, true);
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +12,7 @@ $data = json_decode($json, true);
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@400;500;600;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <style>
         body {
             background: #111;
@@ -164,25 +151,37 @@ $data = json_decode($json, true);
                             <th>Jawaban</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <?php
-                        foreach ($data as $d) :
-                            $t = $d['tanggal'];
-                            $j = $d['judul'];
-                            $f = $d['file'];
-                        ?>
-                            <tr>
-                                <td><?= $t ?></td>
-                                <td><?= $j ?></td>
-                                <td><a href="http://smansawiok.net/filetugassiswa/<?= $f ?>" target="_blank"><?= $f ?></a></td>
-                            </tr>
-                        <?php endforeach ?>
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
         <div class="conf"></div>
     </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+    
+    <script>
+        $(function(){
+           $('.table').DataTable({
+              "processing": true,
+              "serverSide": true,
+              "ajax":{
+                       "url": "http://smansawiok.net/docmateri/serverapi.php",
+                       "dataType": "json",
+                       "type": "POST"
+                     },
+              "columns": [
+                  { "data": "mapel" },
+                  { "data": "tugas" },
+                  { "data": "jawaban" },
+                  { "data": "tanggal" },
+              ]
+          });
+        });
+    </script>
+    
     <!-- Histats.com  (div with counter) -->
     <div id="histats_counter" class="hide"></div>
     <!-- Histats.com  START  (aync)-->
@@ -197,14 +196,6 @@ $data = json_decode($json, true);
     })();</script>
     <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4593871&101" alt="" border="0"></a></noscript>
     <!-- Histats.com  END  -->
-    
-    <?php
-    if ($jam >= '06:00' && $jam <= '06:30') {
-        getData();
-    } elseif ($jam >= '18:00' && $jam <= '18:30') {
-        getData();
-    }
-    ?>
 </body>
 
 </html>
